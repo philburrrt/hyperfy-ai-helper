@@ -54,6 +54,8 @@ export default function App() {
     setMessages([...messages, response])
   }, [response])
 
+  // when the user sends a message, check if it mentions the bot
+  // then send the message to the OpenAI API
   useEffect(() => {
     if (!world.isClient) return
     return world.on('chat', msg => {
