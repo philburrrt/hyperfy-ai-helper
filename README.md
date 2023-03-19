@@ -1,4 +1,4 @@
-# Hyperfy AI Skybox App
+# Hyperfy AI Helper App
 
 Define the bot's persona, and talk to it about anything.
 Requires an openai api key.
