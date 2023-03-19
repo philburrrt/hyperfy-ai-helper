@@ -66,7 +66,7 @@ export default function App() {
         getResponse(prompt)
       }
     })
-  })
+  }, [])
 
   // send a request to the OpenAI API
   const getResponse = async prompt => {
