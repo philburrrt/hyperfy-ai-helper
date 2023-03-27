@@ -185,7 +185,7 @@ export const getStore = (state = initialState) => {
         key: 'frequencyPenalty',
         label: 'Frequency Penalty',
         type: 'float',
-        placeholder: 0,
+        initial: 0,
       },
     ],
   }
