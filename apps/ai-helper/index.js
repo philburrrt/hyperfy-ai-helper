@@ -5,25 +5,19 @@ const OPENAI_URL = 'https://api.openai.com/v1'
 const OPENAI_MODEL = 'gpt-3.5-turbo'
 
 // initial prompt needs to contain instructions on how to respond
-const INITIAL_PROMPT = (
-  aiName,
-  age,
-  gender,
-  personality,
-  interests,
-  prompt
-) => {
+const injectPrompt = (aiName, age, gender, personality, interests, prompt) => {
   return [
     {
       role: 'user',
       content: `
         Respond as a fictional human with the following characteristics:
-        Name: ${aiName}
-        Age: ${age}
-        gender: ${gender}
-        personality: ${personality}
-        interests: ${interests}
-        Never break character. This will be the first message of the conversation:
+          Name: ${aiName}
+          Age: ${age}
+          Gender: ${gender}
+          Personality: ${personality}
+          Interests: ${interests}
+
+        This is the message you will be responding to:
         ${prompt}
       `,
     },
@@ -81,23 +75,10 @@ export default function App() {
     if (!aiName || !age || !gender || !personality || !interests || !apiKey)
       return debugChat(`${aiName}: Please fill out all fields`, world)
     let message
-    // if this is the first message, send the initial prompt
+    message = injectPrompt(aiName, age, gender, personality, interests, prompt)
     if (!messages) {
-      message = INITIAL_PROMPT(
-        aiName,
-        age,
-        gender,
-        personality,
-        interests,
-        prompt
-      )
       setMessages(message)
     } else {
-      // otherwise, add the new message to the messages log
-      message = {
-        role: 'user',
-        content: prompt,
-      }
       setMessages([...messages, message])
       message = [...messages, message]
     }
@@ -185,26 +166,26 @@ export const getStore = (state = initialState) => {
       {
         key: 'maxTokens',
         label: 'Max Tokens',
-        type: 'text',
-        placeholder: '100',
+        type: 'float',
+        initial: 100,
       },
       {
         key: 'temp',
         label: 'Temperature',
-        type: 'text',
-        placeholder: '0.2',
+        type: 'float',
+        initial: 0.2,
       },
       {
         key: 'presencePenalty',
         label: 'Presence Penalty',
-        type: 'text',
-        placeholder: '0.0',
+        type: 'float',
+        initial: 0,
       },
       {
         key: 'frequencyPenalty',
         label: 'Frequency Penalty',
-        type: 'text',
-        placeholder: '0.0',
+        type: 'float',
+        placeholder: 0,
       },
     ],
   }
