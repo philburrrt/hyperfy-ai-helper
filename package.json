@@ -11,7 +11,7 @@
     "upload": "hyperfy-tools upload"
   },
   "devDependencies": {
-    "hyperfy-tools": "2.21.1"
+    "hyperfy-tools": "2.22.0"
   },
   "dependencies": {},
   "engines": {

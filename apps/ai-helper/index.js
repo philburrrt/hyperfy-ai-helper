@@ -66,12 +66,9 @@ export default function App() {
   useEffect(() => {
     if (!world.isClient) return
     return world.on('chat', msg => {
-      const { text, from } = msg
-      const { name } = world.getAvatar()
-      if (from !== name) return
-      if (name === 'Anonymous')
-        return debugChat(`${aiName}: Please set your name, Anon`, world)
-      if (from === aiName) return
+      const { text, fromId } = msg
+      const { uid } = world.getAvatar()
+      if (fromId !== uid) return
       if (text.includes(`@${aiName}`)) {
         const prompt = text.split(`@${aiName}`)[1]
         getResponse(prompt)
